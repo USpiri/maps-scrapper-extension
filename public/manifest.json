@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Maps Scrapper",
+  "version": "1.0.0",
+  "author": "urielspiridione135@gmail.com",
+  "description": "Extract data from Google Maps",
+  "permissions": ["activeTab", "scripting"],
+  "icons": {
+    "48": "images/icon.png",
+    "128": "images/icon.png"
+  },
+  "action": {
+    "default_popup": "index.html"
+  }
+}

@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/button.tsx","./src/components/footer.tsx","./src/components/layout.tsx","./src/components/nogoogle.tsx","./src/components/scrapper.tsx","./src/components/table.tsx","./src/data/map-items.ts","./src/hooks/usevalidlink.ts","./src/models/item.interface.ts","./src/utils/tabs.ts"],"version":"5.6.2"}
