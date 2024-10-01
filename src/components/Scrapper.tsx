@@ -43,7 +43,7 @@ export const Scrapper = () => {
             <MapsItemTable data={data} />
             <span className="text-xs font-mono">Total: {data.length}</span>
           </div>
-          <DownloadData />
+          <DownloadData data={data} />
         </>
       )}
     </>
