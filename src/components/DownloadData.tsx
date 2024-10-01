@@ -16,8 +16,14 @@ export const DownloadData = ({ data }: DownloadDataProps) => {
   };
 
   return (
-    <div className="flex gap-3">
-      <Button onClick={onDownload} variant="primary">
+    <form
+      className="flex gap-3"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onDownload();
+      }}
+    >
+      <Button type="submit" variant="primary">
         Download CSV
       </Button>
       <label>
@@ -29,6 +35,6 @@ export const DownloadData = ({ data }: DownloadDataProps) => {
           className="bg-transparent border border-gray-300 rounded-md w-full px-2 py-1 outline-none"
         />
       </label>
-    </div>
+    </form>
   );
 };
