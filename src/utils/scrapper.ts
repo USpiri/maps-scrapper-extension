@@ -73,11 +73,11 @@ export const scrapeData = () => {
 
     const data: MapItem = {
       name,
-      rating,
-      reviewsCount,
+      rating: parseFloat(rating.replace(",", ".")) || 0,
+      reviewsCount: Number(reviewsCount) || 0,
       isAccessible,
       category,
-      address,
+      address: address.replace(",", "."),
       time,
       phone,
       image,

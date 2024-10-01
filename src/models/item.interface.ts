@@ -1,7 +1,7 @@
 export interface MapItem {
   name: string;
-  rating: string;
-  reviewsCount: string;
+  rating: number;
+  reviewsCount: number;
   isAccessible: boolean;
   phone: string;
   time: string;

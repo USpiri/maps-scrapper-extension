@@ -26,7 +26,7 @@ export const downloadMapItemsCSV =
         i.category,
         i.isAccessible,
         i.address,
-        i.features,
+        i.features.join(" - "),
         i.image,
         i.website,
         i.mapLink,
