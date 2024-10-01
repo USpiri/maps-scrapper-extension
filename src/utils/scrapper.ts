@@ -72,16 +72,16 @@ export const scrapeData = () => {
       ).href ?? "";
 
     const data: MapItem = {
-      name,
+      name: name.replace(/,/g, "."),
       rating: parseFloat(rating.replace(",", ".")) || 0,
       reviewsCount: Number(reviewsCount) || 0,
       isAccessible,
-      category,
-      address: address.replace(",", "."),
-      time,
-      phone,
+      category: category.replace(/,/g, "."),
+      address: address.replace(/,/g, "."),
+      time: time.replace(/,/g, "."),
+      phone: phone.replace(/,/g, "."),
+      features: features.map((f) => f.replace(/,/g, ".")),
       image,
-      features,
       website,
       mapLink: (link as HTMLAnchorElement).href,
     };
