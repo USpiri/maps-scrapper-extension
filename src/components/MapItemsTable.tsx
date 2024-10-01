@@ -11,8 +11,8 @@ export const MapsItemTable = ({ data }: MapsItemTableProps) => {
       <Table>
         <TableHead
           headings={[
-            "Name",
             "Image",
+            "Name",
             "Rating",
             "Phone",
             "Time",
