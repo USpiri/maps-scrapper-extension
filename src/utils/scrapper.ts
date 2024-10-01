@@ -39,7 +39,8 @@ export const scrapeData = () => {
 
     // Category and Address
     const [category = "", address = ""] = [
-      ...(categoryContent as HTMLElement).querySelectorAll(":scope > span"),
+      ...((categoryContent as HTMLElement)?.querySelectorAll(":scope > span") ||
+        []),
     ].map((span) =>
       span.textContent?.replace(MIDDLE_DOT_ICON_REGEX, "").trim(),
     );
