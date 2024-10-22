@@ -1,8 +1,12 @@
 import { MapItem } from "../models/item.interface";
 
 export const scrapeData = () => {
-  const ACCESSIBILITY_ICON_REGEX = /\uE934/;
-  const MIDDLE_DOT_ICON_REGEX = /\u00B7/;
+  const RATING_CLASS = "MW4etd";
+  const REVIEW_COUNT_CLASS = "UY7F9";
+  const DATA_CLASS = "W4Efsd";
+  const PHONE_CLASS = "UsdlK";
+  const FEATURES_CLASS = "qty3Ue";
+  const WEBSITE_CLASS = "lcr4fd";
 
   return [
     ...document.querySelectorAll(
@@ -16,74 +20,103 @@ export const scrapeData = () => {
       container.childNodes[2]?.childNodes[3] as HTMLElement
     ).querySelector(".fontBodyMedium");
 
-    // Name
-    const name =
+    // Title
+    const title =
       container.querySelector(".fontHeadlineSmall")?.textContent ?? "";
 
     // Rating and RatingCount
     const ratingContent = container.querySelector("[role='img']");
+    const avgRating =
+      ratingContent?.querySelector(`.${RATING_CLASS}`)?.textContent ?? "";
 
-    const [, rating = "", reviewsCount = ""] =
-      (ratingContent as HTMLElement)?.textContent?.match(
-        /(\d+,\d)\((\d+\.?\d*)\)/,
-      ) || [];
+    // RatingCount
+    const reviewsCount = ratingContent
+      ?.querySelector(`.${REVIEW_COUNT_CLASS}`)
+      ?.textContent?.replace(/[{()}]/g, "");
+
+    // Address
+    const address =
+      dataNodes
+        ?.querySelector(`.${DATA_CLASS}:nth-of-type(1) > span:last-child`)
+        ?.textContent?.replace("·", "")
+        .trim() ?? "";
+
+    // Description
+    const description =
+      dataNodes
+        ?.querySelector(`.${DATA_CLASS}:nth-of-type(2)`)
+        ?.textContent?.replace("·", "")
+        .trim() ?? "";
 
     // Accessibility
-    const isAccessible = ACCESSIBILITY_ICON_REGEX.test(
-      dataNodes?.childNodes[3]?.textContent ?? "",
-    );
-
-    const [categoryContent, contactContent] = [
-      ...(dataNodes?.childNodes[3].childNodes ?? []),
-    ];
+    const isAccessible =
+      dataNodes?.querySelector(
+        `.${DATA_CLASS}:nth-of-type(1) > * .google-symbols`,
+      ) !== null;
 
     // Category and Address
-    const [category = "", address = ""] = [
-      ...((categoryContent as HTMLElement)?.querySelectorAll(":scope > span") ||
-        []),
-    ].map((span) =>
-      span.textContent?.replace(MIDDLE_DOT_ICON_REGEX, "").trim(),
-    );
+    const category =
+      dataNodes
+        ?.querySelector(`.${DATA_CLASS}:nth-of-type(1) > span:first-child`)
+        ?.textContent?.replace("·", "")
+        .trim() ?? "";
 
-    // Time and Phone
-    const [time = "", phone = ""] = [
-      ...((contactContent as HTMLElement)?.querySelectorAll(":scope > span") ||
-        []),
-    ].map((span) =>
-      span.textContent?.replace(MIDDLE_DOT_ICON_REGEX, "").trim(),
-    );
+    // Time
+    const time =
+      dataNodes?.querySelector(
+        `.${DATA_CLASS}:nth-of-type(2) > span:not(:has(.${PHONE_CLASS})):not([aria-hidden])`,
+      )?.textContent ?? "";
+
+    // Phone
+    const phone =
+      dataNodes?.querySelector(
+        `.${DATA_CLASS}:nth-of-type(2) > * .${PHONE_CLASS}`,
+      )?.textContent ?? "";
+
+    // Latitude
+    const latitude =
+      link?.getAttribute("href")?.split("!8m2!3d")[1].split("!4d")[0] ?? "";
+
+    // Longitude
+    const longitude =
+      link?.getAttribute("href")?.split("!4d")[1].split("!16s")[0] ?? "";
+
+    // DataId
+    const dataId =
+      link?.getAttribute("href")?.split("1s")[1].split("!8m")[0] ?? "";
 
     // Image
-    const image = (container.querySelector("img") as HTMLImageElement)?.src;
+    const image =
+      container.querySelector("img")?.getAttribute("src") ?? undefined;
 
     // Features
-    const features = [...container.querySelectorAll('span[role="text"]')]
-      .map((el) => el.textContent)
-      .filter((el) => el !== null);
+    const features = [
+      ...(container?.querySelectorAll(
+        `.${FEATURES_CLASS} > * span:not([class])`,
+      ) ?? []),
+    ].map((e) => e.textContent ?? "");
 
     // Website Link
     const website =
-      (
-        [...container.querySelectorAll("a[href]")].filter((a) =>
-          (a as HTMLAnchorElement).href.startsWith(
-            "https://www.google.com/maps/place/",
-          ),
-        )[0] as HTMLAnchorElement
-      ).href ?? "";
+      container?.querySelector(`.${WEBSITE_CLASS}`)?.getAttribute("href") ?? "";
 
     const data: MapItem = {
-      name: name.replace(/,/g, "."),
-      rating: parseFloat(rating.replace(",", ".")) || 0,
-      reviewsCount: Number(reviewsCount) || 0,
+      title,
+      avgRating: parseFloat(avgRating) || undefined,
+      reviewsCount: Number(reviewsCount) || undefined,
+      address,
+      description,
+      category,
+      time,
+      phone,
+      features,
       isAccessible,
-      category: category.replace(/,/g, "."),
-      address: address.replace(/,/g, "."),
-      time: time.replace(/,/g, "."),
-      phone: phone.replace(/,/g, "."),
-      features: features.map((f) => f.replace(/,/g, ".")),
+      latitude,
+      longitude,
       image,
       website,
       mapLink: (link as HTMLAnchorElement).href,
+      dataId,
     };
     return data;
   });

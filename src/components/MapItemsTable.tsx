@@ -26,7 +26,7 @@ export const MapsItemTable = ({ data }: MapsItemTableProps) => {
         />
         <tbody>
           {data.map((item) => (
-            <TR key={item.name}>
+            <TR key={item.title}>
               <TD>
                 <img
                   src={item.image}
@@ -35,9 +35,9 @@ export const MapsItemTable = ({ data }: MapsItemTableProps) => {
                   className="aspect-square"
                 />
               </TD>
-              <TH className="font-medium">{item.name}</TH>
+              <TH className="font-medium">{item.title}</TH>
               <TD>
-                {item.rating}({item.reviewsCount})
+                {item.avgRating}({item.reviewsCount})
               </TD>
               <TD>{item.phone}</TD>
               <TD className="whitespace-nowrap">{item.time}</TD>
@@ -52,13 +52,15 @@ export const MapsItemTable = ({ data }: MapsItemTableProps) => {
                 </ul>
               </TD>
               <TD>
-                <a
-                  href={item.website}
-                  target="_blank"
-                  className="underline hover:text-blue-500"
-                >
-                  Web site 🌐
-                </a>
+                {item.website && (
+                  <a
+                    href={item.website}
+                    target="_blank"
+                    className="underline hover:text-blue-500"
+                  >
+                    Web site 🌐
+                  </a>
+                )}
               </TD>
               <TD>
                 <a

@@ -25,7 +25,7 @@ export const Scrapper = () => {
           ...(items as MapItem[]).filter(
             (i) =>
               !currentData.some(
-                (prev) => prev.name === i.name && prev.address === i.address,
+                (prev) => prev.title === i.title && prev.address === i.address,
               ),
           ),
         ]),
