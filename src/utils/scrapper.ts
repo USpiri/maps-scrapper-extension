@@ -5,7 +5,8 @@ export const scrapeData = () => {
   const REVIEW_COUNT_CLASS = "UY7F9";
   const DATA_CLASS = "W4Efsd";
   const PHONE_CLASS = "UsdlK";
-  const FEATURES_CLASS = "qty3Ue";
+  // Not specific
+  // const FEATURES_CLASS = "ah5Ghc";
   const WEBSITE_CLASS = "lcr4fd";
 
   return [
@@ -91,9 +92,7 @@ export const scrapeData = () => {
 
     // Features
     const features = [
-      ...(container?.querySelectorAll(
-        `.${FEATURES_CLASS} > * span:not([class])`,
-      ) ?? []),
+      ...(container?.querySelectorAll(`[role=text]`) ?? []),
     ].map((e) => e.textContent ?? "");
 
     // Website Link
@@ -103,7 +102,7 @@ export const scrapeData = () => {
     const data: MapItem = {
       title,
       avgRating: parseFloat(avgRating) || undefined,
-      reviewsCount: Number(reviewsCount) || undefined,
+      reviewsCount: Number(reviewsCount?.replace(",", ".")) || undefined,
       address,
       description,
       category,
