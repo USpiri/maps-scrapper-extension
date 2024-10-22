@@ -25,14 +25,11 @@
 
 ## About Maps Scrapper Extension
 
-Este proyecto, creado con React y Vite, es una extensión para Google Chrome que permite a los usuarios realizar scraping de los resultados de búsqueda en Google Maps. Una vez instalada y activada, la extensión extrae automáticamente toda la información de los resultados de búsqueda (nombre, dirección, calificación, número de reseñas, etc.) y la presenta de manera organizada para su uso posterior en análisis de datos o investigación de mercado, permitiendo descargar los datos como archivo `.csv` o `.json`. 
+Este proyecto, creado con React y Vite, es una extensión para Google Chrome que permite a los usuarios realizar scraping de los resultados de búsqueda en Google Maps y la presenta de manera organizada para su uso posterior en análisis de datos o investigación de mercado, permitiendo descargar los datos como archivo `.csv` o `.json`. 
 
 ![133shots_so](https://github.com/user-attachments/assets/3bf454da-d86f-4089-84cf-86ebcd8d655e)
 
 Diseñada para recopilar información de negocios, lugares, profesionales listados en Google Maps. Permitiendo un acceso rápido para análisis de mercado, leads y generación de bases de datos. Especialmente útil para obtener **insights comerciales**.
-
-> [!NOTE]
-> La extracción de datos puede no ser perfecta.
  
 ## 🛠️ Tecnologías utilizadas
 
@@ -56,6 +53,53 @@ Diseñada para recopilar información de negocios, lugares, profesionales listad
 3. Abre la extensión.
 4. Inicia el scrapping.
 5. Descarga los datos 🎉
+
+## Data Types
+
+
+```json
+{
+    "title": "COMPANY S.A",
+    "avgRating": 4.8,
+    "reviewsCount": 941,
+    "address": "Street 123",
+    "description": "Best company ever",
+    "category": "Tech",
+    "time": "Open 24h",
+    "phone": "12345678",
+    "features": [
+        "React",
+        "Tailwind",
+        "Vite"
+    ],
+    "isAccessible": false,
+    "latitude": "40.7262904",
+    "longitude": "-73.9945834",
+    "image": "...",
+    "website": "...",
+    "mapLink": "...",
+    "dataId": "0x00c0000a00e00000:0xbf00000000b00bd0"
+}
+```
+
+| Name           | Type            | Description                                                                      |
+| -------------- | --------------- | -------------------------------------------------------------------------------- |
+| `title`        | `string`        | Result name                                                                      |
+| `avgRating`    | `string`        | Average rating on Google Maps                                                    |
+| `reviewsCount` | `number`        | Number of reviews the result has                                                 |
+| `address`      | `string`        | Physical address of the result                                                   |
+| `description`  | `string`        | Brief description of the result                                                  |
+| `category`     | `string`        | Category or sector to which the result belongs                                   |
+| `time`         | `string`        | Timing (aprox.)                                                                  |
+| `phone`        | `string`        | Contact phone number                                                             |
+| `features`     | `array[string]` | Extra services.                                                                  |
+| `isAccessible` | `boolean`       | Indicates whether the company is accessible (e.g. for people with disabilities). |
+| `latitude`     | `string`        | Location latitude                                                                |
+| `longitude`    | `string`        | Location longitude                                                               |
+| `image`        | `string`        | Result image                                                                     |
+| `website`      | `string`        | Result website                                                                   |
+| `mapLink`      | `string`        | Result Google Maps link                                                          |
+| `dataId`       | `string`        | Id                                                                               |
 
 ## Estructura de Carpetas
 ```bash
