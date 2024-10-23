@@ -76,15 +76,15 @@ export const scrapeData = () => {
 
     // Latitude
     const latitude =
-      link?.getAttribute("href")?.split("!8m2!3d")[1].split("!4d")[0] ?? "";
+      link?.getAttribute("href")?.split("!8m2!3d")[1]?.split("!4d")[0] ?? "";
 
     // Longitude
     const longitude =
-      link?.getAttribute("href")?.split("!4d")[1].split("!16s")[0] ?? "";
+      link?.getAttribute("href")?.split("!4d")[1]?.split("!16s")[0] ?? "";
 
     // DataId
     const dataId =
-      link?.getAttribute("href")?.split("1s")[1].split("!8m")[0] ?? "";
+      link?.getAttribute("href")?.split("1s")[1]?.split("!8m")[0] ?? "";
 
     // Image
     const image =
